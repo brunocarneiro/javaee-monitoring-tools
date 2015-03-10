@@ -14,17 +14,19 @@ public class MonitorInterceptor {
 	@AroundInvoke
 	public Object interceptAllRemoteInvocations (InvocationContext ctx) throws Exception {
 		
-		long time = System.currentTimeMillis();
+		long whenExecuted, methodMeasuredTime;
+		whenExecuted = methodMeasuredTime = System.currentTimeMillis();
 		try{
 			Object result =  ctx.proceed();
 			return result;
 		} finally{
-			time=System.currentTimeMillis()-time;
-			if(methodMonitor.isLongestEnougth(time)){
+			methodMeasuredTime=System.currentTimeMillis()-methodMeasuredTime;
+			if(methodMonitor.isLongestEnougth(methodMeasuredTime)){
 				MonitoredMethodCall monitoredMethodCall = new MonitoredMethodCall();
 				monitoredMethodCall.setMethodName(ctx.getMethod().getDeclaringClass().getName()+"."+ ctx.getMethod().getName()+" ("+getParametersName(ctx)+")");
 				monitoredMethodCall.setStackTrace(Thread.currentThread().getStackTrace());
-				monitoredMethodCall.setTimeExecuted(time);
+				monitoredMethodCall.setTimeExecuted(methodMeasuredTime);
+				monitoredMethodCall.setWhenExecuted(whenExecuted);
 				methodMonitor.addMethod(monitoredMethodCall);
 			}
 		}

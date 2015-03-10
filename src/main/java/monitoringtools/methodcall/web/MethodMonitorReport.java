@@ -24,6 +24,7 @@ public class MethodMonitorReport  extends HttpServlet {
 		
 		if(req.getParameter("clear")!=null){
 			monitor.clear();
+			resp.sendRedirect("monitorreport");
 		}
 		
 		PrintWriter respWriter = resp.getWriter();

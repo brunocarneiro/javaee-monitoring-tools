@@ -5,6 +5,7 @@ public class MonitoredMethodCall implements Comparable<MonitoredMethodCall>{
 	private long timeExecuted;
 	private String methodName;
 	private StackTraceElement[] stackTrace;
+	private long whenExecuted;
 	
 	@Override
 	public int compareTo(MonitoredMethodCall o) {
@@ -23,9 +24,14 @@ public class MonitoredMethodCall implements Comparable<MonitoredMethodCall>{
 	public boolean equals(Object obj) {
 		if(obj instanceof MonitoredMethodCall){
 			MonitoredMethodCall other = (MonitoredMethodCall)obj;
-			return other.getMethodName().equals(this.getMethodName());
+			return other.getMethodName().equals(this.getMethodName()) && (other.getWhenExecuted()==this.getWhenExecuted());
 		} else
 			return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (this.getMethodName()+this.getWhenExecuted()).hashCode();
 	}
 
 	public long getTimeExecuted() {
@@ -50,6 +56,14 @@ public class MonitoredMethodCall implements Comparable<MonitoredMethodCall>{
 	
 	public StackTraceElement[] getStackTrace() {
 		return stackTrace;
+	}
+
+	public long getWhenExecuted() {
+		return whenExecuted;
+	}
+
+	public void setWhenExecuted(long whenExecuted) {
+		this.whenExecuted = whenExecuted;
 	}
 }
 

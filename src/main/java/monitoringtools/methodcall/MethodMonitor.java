@@ -15,7 +15,7 @@ public class MethodMonitor implements Iterable<MonitoredMethodCall>{
 	private static final int MAX_SIZE = 30;
 	
 	public synchronized void addMethod(MonitoredMethodCall m){
-		if(monitoredMethods.size()==MAX_SIZE && monitoredMethods.last().compareTo(m)<0){
+		if(monitoredMethods.size()==MAX_SIZE && monitoredMethods.last().compareTo(m)>0){
 			monitoredMethods.remove(monitoredMethods.last());
 		}
 		monitoredMethods.add(m);
