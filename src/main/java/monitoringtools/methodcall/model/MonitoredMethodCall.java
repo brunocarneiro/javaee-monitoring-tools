@@ -1,11 +1,34 @@
 package monitoringtools.methodcall.model;
 
+import java.lang.reflect.Method;
+
 public class MonitoredMethodCall implements Comparable<MonitoredMethodCall>{
 
 	private long timeExecuted;
 	private String methodName;
 	private StackTraceElement[] stackTrace;
 	private long whenExecuted;
+	private long threadId = Thread.currentThread().getId();
+	
+	public MonitoredMethodCall(){}
+	
+	public MonitoredMethodCall(Method method, long timeExecuted, long whenExecuted){
+		this.methodName=method.getDeclaringClass().getName()+"."+ method.getName()+" ("+getParametersName(method)+")";
+		this.stackTrace=Thread.currentThread().getStackTrace();
+		this.timeExecuted=timeExecuted;
+		this.whenExecuted=whenExecuted;
+	}
+	
+	protected String getParametersName(Method method) {
+		StringBuffer buf = new StringBuffer();
+		for(Class<?> clazz : method.getParameterTypes()){
+			if(buf.length()!=0){
+				buf.append(", ");
+			}
+			buf.append(clazz.toString());
+		}
+		return buf.toString();
+	}
 	
 	@Override
 	public int compareTo(MonitoredMethodCall o) {
@@ -38,22 +61,10 @@ public class MonitoredMethodCall implements Comparable<MonitoredMethodCall>{
 		return timeExecuted;
 	}
 
-	public void setTimeExecuted(long timeExecuted) {
-		this.timeExecuted = timeExecuted;
-	}
-
 	public String getMethodName() {
 		return methodName;
 	}
 
-	public void setMethodName(String methodName) {
-		this.methodName = methodName;
-	}
-
-	public void setStackTrace(StackTraceElement[] stackTrace) {
-		this.stackTrace=stackTrace;
-	}
-	
 	public StackTraceElement[] getStackTrace() {
 		return stackTrace;
 	}
@@ -62,8 +73,8 @@ public class MonitoredMethodCall implements Comparable<MonitoredMethodCall>{
 		return whenExecuted;
 	}
 
-	public void setWhenExecuted(long whenExecuted) {
-		this.whenExecuted = whenExecuted;
+	public long getThreadId() {
+		return threadId;
 	}
 }
 

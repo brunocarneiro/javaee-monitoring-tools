@@ -1,4 +1,4 @@
-package monitoringtools.methodcall;
+package monitoringtools.methodcall.log;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;

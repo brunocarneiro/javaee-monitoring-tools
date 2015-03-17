@@ -14,7 +14,7 @@ import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.enterprise.util.AnnotationLiteral;
 
 /**
- * CDI Plugin that enables monitoring interceptor dynamically 
+ * CDI Extension that enables the monitoring interceptor dynamically 
  * (without annotating a class).
  * 
  * @author bruno.carneiro

@@ -10,6 +10,12 @@ import javax.enterprise.inject.spi.AnnotatedField;
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 
+/**
+ * Wrappes an annotatedType to be possible to add interceptor dynamically.
+ * @author bruno.carneiro
+ *
+ * @param <T>
+ */
 public class AnnotatedTypeWrapper<T> implements AnnotatedType<T> {
 
 	private final AnnotatedType<T> wrapped;

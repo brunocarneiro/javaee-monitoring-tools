@@ -7,6 +7,11 @@ import javax.enterprise.context.ApplicationScoped;
 
 import monitoringtools.methodcall.model.MonitoredMethodCall;
 
+/**
+ * Keep method executed statics.
+ * @author bruno.carneiro
+ *
+ */
 @ApplicationScoped
 public class MethodMonitor implements Iterable<MonitoredMethodCall>{
 

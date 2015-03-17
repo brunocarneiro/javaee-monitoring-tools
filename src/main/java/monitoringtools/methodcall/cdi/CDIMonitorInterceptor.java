@@ -1,4 +1,4 @@
-package monitoringtools.methodcall;
+package monitoringtools.methodcall.cdi;
 
 import java.io.Serializable;
 
@@ -7,12 +7,14 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
-import monitoringtools.methodcall.cdi.Monitored;
+import monitoringtools.methodcall.MethodMonitor;
 import monitoringtools.methodcall.model.MonitoredMethodCall;
 
 @Monitored
 @Interceptor
 public class CDIMonitorInterceptor implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private MethodMonitor methodMonitor;
@@ -28,25 +30,9 @@ public class CDIMonitorInterceptor implements Serializable {
 		} finally{
 			methodMeasuredTime=System.currentTimeMillis()-methodMeasuredTime;
 			if(methodMonitor.isLongestEnougth(methodMeasuredTime)){
-				MonitoredMethodCall monitoredMethodCall = new MonitoredMethodCall();
-				monitoredMethodCall.setMethodName(ctx.getMethod().getDeclaringClass().getName()+"."+ ctx.getMethod().getName()+" ("+getParametersName(ctx)+")");
-				monitoredMethodCall.setStackTrace(Thread.currentThread().getStackTrace());
-				monitoredMethodCall.setTimeExecuted(methodMeasuredTime);
-				monitoredMethodCall.setWhenExecuted(whenExecuted);
+				MonitoredMethodCall monitoredMethodCall = new MonitoredMethodCall(ctx.getMethod(), methodMeasuredTime, whenExecuted);
 				methodMonitor.addMethod(monitoredMethodCall);
 			}
 		}
 	}
-
-	protected String getParametersName(InvocationContext ctx) {
-		StringBuffer buf = new StringBuffer();
-		for(Class<?> clazz : ctx.getMethod().getParameterTypes()){
-			if(buf.length()!=0){
-				buf.append(", ");
-			}
-			buf.append(clazz.toString());
-		}
-		return buf.toString();
-	}
-
 }

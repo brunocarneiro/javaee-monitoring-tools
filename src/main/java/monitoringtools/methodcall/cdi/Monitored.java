@@ -8,6 +8,14 @@ import java.lang.annotation.Target;
 
 import javax.interceptor.InterceptorBinding;
 
+/**
+ * Add this annotations in the classes you want 
+ * to monitor methods execution
+ * 
+ * Enable a Monitor Interceptor.
+ * @author bruno.carneiro
+ *
+ */
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ TYPE })

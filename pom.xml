@@ -6,11 +6,6 @@
   
   <dependencies>
   	<dependency>
-  		<groupId>br.gov.bndes.arquitetura</groupId>
-  		<artifactId>bndes_appcheck_spi</artifactId>
-  		<version>0.0.1</version>
-  	</dependency>
-  	<dependency>
   		<groupId>javax</groupId>
   		<artifactId>javaee-api</artifactId>
   		<version>6.0</version>
@@ -20,17 +15,19 @@
   	  <groupId>commons-io</groupId>
 	  <artifactId>commons-io</artifactId>
 	  <version>1.4</version>
+	  <scope>provided</scope>
   	</dependency>
-	<dependency>
-		<groupId>com.ibm.ws.ejb</groupId>
-		<artifactId>thinclient</artifactId>
-		<scope>provided</scope>
-		<version>8.0.0</version>
-	</dependency>
 	<dependency>
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>
 		<version>1.2.16</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>javax.enterprise</groupId>
+	    <artifactId>cdi-api</artifactId>
+	    <version>1.0</version>
+		<scope>provided</scope>
 	</dependency>
   </dependencies>
   
